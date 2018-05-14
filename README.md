@@ -1,11 +1,11 @@
 # Getting Started
 Hardware I used:
 
-- NFC Module
-- Raspberry Pi 3
+- Raspberry Pi 3 Model B
+- NFC Module (I used 'SunFounder PN532 NFC RFID Module Kit')
 - 7 Inch Touch Screen (Any screen can be used)
 - USB Speaker
-- NFC Cards
+- NFC Cards (13.56MHz to match the Module)
 - Project box to hold the hardware in place
 - Jumpers for I/O pins
 
