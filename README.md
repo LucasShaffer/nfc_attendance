@@ -131,3 +131,37 @@ Now that we have the webpages that we are going to use let's link them with the 
 sudo ln -s /home/pi/nfc_attendance /var/www/
 ```
 Now you should be able to see the UI at the 'http://localhost/nfc_attendance/web/index.php' address.
+
+We can now reboot the pi and we should see it automatically boot to our web UI that has the date, time, and prompt to have the user scan their ID card. To exit this UI just use ALT+F4.
+
+# Setting up the RFID reader
+This is where we will see differences in order to set up the module. Each RFID reader will have the own way to be set up but for this I will go through the steps to set up the Sunfounder PN532. (https://www.amazon.com/SunFounder-Module-Reader-Arduino-Android/dp/B01N8TWIF8)
+
+The Sunfounder PN532 can be setup to communicate with I2C or SPI. The instruction for setting up this module can be found on their wiki or follow the following steps for SPI setup. (http://wiki.sunfounder.cc/index.php?title=PN532_NFC_RFID_Module)
+
+To do this we will need to enable the SPI interface on the pi. Open the configuration tool.
+```
+sudo raspi-config
+```
+Next, select 'Interfacing Options' > 'SPI' > 'Yes' to enable. Select 'Finish' to exit.
+
+We will now need to install some dependent packages.
+```
+sudo apt-get update
+sudo apt-get install libusb-dev libpcsclite-dev i2c-tools
+```
+Now, we will download and unzip the source code package of libnfc.
+```
+cd ~
+wget http://dl.bintray.com/nfc-tools/sources/libnfc-1.7.1.tar.bz2
+tar -xf libnfc-1.7.1.tar.bz2 
+```
+We can now compile and install this package.
+```
+cd libnfc-1.7.1
+./configure --prefix=/usr --sysconfdir=/etc
+make
+sudo make install
+```
+
+
