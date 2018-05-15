@@ -225,3 +225,20 @@ Next, we can try and read a card. Place a card near the module and use the follo
 nfc-poll
 ```
 This should return information about the card including a UID which is what we will use to identify each card.
+
+# Setup the database
+We will now need to create a database that will work with what we are trying to do. We will need to have a table for the reading, users, and the cards.
+
+To do this we will need to start out by going to 'http://localhost/myphpadmin/index.php' and loggin in using the credentials that were set during the install.
+
+Next, click the 'import' tab at the top of the webpage. Here, we can choose the 'mysql.sql' file from this repo in order to create the database.
+
+
+
+
+
+
+
+
+
+
