@@ -24,15 +24,15 @@ Install nginx by using the following command.
 ```
 sudo apt-get install nginx
 ```
-We will now need to create a folder for the webserver with the following command.
+We can also install the PHP packages that we need at this point with the following.
 ```
-sudo mkdir /var/www
+sudo apt-get install php7.0-fpm
 ```
 Now we will need to edit the configuration file. Open this file with the following command.
 ```
 sudo nano /etc/nginx/sites-available/default
 ```
-Once this file is open we need to change it to look like the following
+Once this file is open we need to change it to look like the following and make sure there is only one 'root';
 ```
 server {
         #listen   80; ## listen for ipv4; this line is default and implied
@@ -45,21 +45,32 @@ server {
         error_log /var/log/nginx/error.log; 
  
         location ~\.php$ {
-                fastcgi_pass unix:/var/run/php5-fpm.sock;
-                fastcgi_split_path_info ^(.+\.php)(/.*)$;
-                fastcgi_index index.php;
-                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-                fastcgi_param HTTPS off;
-                try_files $uri =404;
-                include fastcgi_params;
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
         } 
  
         # Make site accessible from http://localhost/
         server_name localhost;
 ```
-
+Next, we will need to change a PHP initalization file, open it with this command.
+```
+sudo nano /etc/php/7.0/fpm/php.ini
+```
+We will need to find 'cgi.fix_pathinfo=0' and change it to the following. Remove the ';' if neccesary.
+```
+cgi.fix_pathinfo=1
+```
+Next, we will reload these two services with the following.
+```
+sudo service nginx reload
+sudo service php7.0-fpm reload
+```
+Finally, we will need to create that root folder for the webserver with the following command.
+```
+sudo mkdir /var/www
+```
 # Install Chromium
-We will now need to install Chromium so we can utilize it's kiosk mode. Use the following command.
+If it is not already installed, we will now need to install Chromium so we can utilize it's kiosk mode. Use the following command.
 ```
 sudo apt-get install chromium
 ```
@@ -93,8 +104,8 @@ sudo raspi-config
 Here we can specify that we want to desktop every time.
 
 # Setting up the UI
-First, let's create a new directory to hold the webpages for our UI. This will have the same name as our kiosk command above.
+First, we will need to get our webpages onto the pi so let's copy the repo with the following commands.
 ```
-sudo mkdir /home/pi/web
+cd ~
+sudo git clone https://github.com/LucasShaffer/nfc_attendance
 ```
-In this directory we will need to add file
