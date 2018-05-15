@@ -194,3 +194,34 @@ device.connstring = "pn532_spi:/dev/spidev0.0:50000"
 #device.name = "_PN532_I2c"
 #device.connstring = "pn532_i2c:/dev/i2c-1"
 ```
+Next, we will need to configure the hardware. On the module there are two switches, the proper settings for SPI use is as follows.
+
+| SEL0 | SEL1 |
+| --- | --- |
+| L | H |
+
+We can now connect the module to the pi. Here is the wiring.
+
+| PN532 | Raspberry |
+| --- | --- |
+| 5V | 5V |
+| SCK | SCKL |
+| MISO | MISO |
+| MOSI | MOSI |
+| NSS | CE0 |
+
+Now we need to check wether or not the SPI is open by running this command.
+```
+ls /dev/spidev0.*
+```
+We should see '/dev/spidev0.0 /dev/spidev0.1' and we can now check the module itself using the following command.
+```
+nfc-list
+```
+This should say that the pn532 device was opened. The Sunfounder wiki states that there is a known error here that may state that there is a 'TFI Mismatch'. I did not get this error.
+
+Next, we can try and read a card. Place a card near the module and use the following command.
+```
+nfc-poll
+```
+This should return information about the card including a UID which is what we will use to identify each card.
