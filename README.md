@@ -19,7 +19,7 @@ sudo apt-get upgrade
 sudo rpi-update
 ```
 # Install a Web Server
-We need to install a webserver that will support PHP and MySql. I used nginx.
+We need to install a web server that will support PHP and MySql. I used nginx.
 Install nginx by using the following command.
 ```
 sudo apt-get install nginx
@@ -60,15 +60,32 @@ We will need to find 'cgi.fix_pathinfo=0' and change it to the following. Remove
 ```
 cgi.fix_pathinfo=1
 ```
+We can now install what we need to run MySql. Use the following command.
+```
+sudo apt-get install mysql-server mysql-client php7.0-mysql phpmyadmin
+```
+This will take some time. 
+
+During the install it will ask you what web server you are using, in this case we want to keep it blank.
+
+It will also ask you if you would like the configure phpMyAdmin, select 'yes'.
+
+Next, it will ask you to create and confirm a password for the database and should be finished shortly after that.
+
 Next, we will reload these two services with the following.
 ```
 sudo service nginx reload
 sudo service php7.0-fpm reload
 ```
-Finally, we will need to create that root folder for the webserver with the following command.
+We will need to create that root folder for the web server with the following command.
 ```
 sudo mkdir /var/www
 ```
+Once that has completed we need to link our database interface with our web server folder with the following command.
+```
+sudo ln -s /usr/share/phpmyadmin /var/www/phpmyadmin
+```
+We should now be able to access our database from 'http://localhost/phpmyadmin/index.php' in a browser. If you do not have a browser installed, complete the next step and try again.
 # Install Chromium
 If it is not already installed, we will now need to install Chromium so we can utilize it's kiosk mode. Use the following command.
 ```
@@ -109,3 +126,8 @@ First, we will need to get our webpages onto the pi so let's copy the repo with 
 cd ~
 sudo git clone https://github.com/LucasShaffer/nfc_attendance
 ```
+Now that we have the webpages that we are going to use let's link them with the web server's root folder with this command.
+```
+sudo ln -s /home/pi/nfc_attendance /var/www/
+```
+Now you should be able to see the UI at the 'http://localhost/nfc_attendance/web/index.php' address.
