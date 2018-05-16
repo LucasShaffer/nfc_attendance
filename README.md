@@ -229,15 +229,29 @@ This should return information about the card including a UID which is what we w
 # Setup the database
 We will now need to create a database that will work with what we are trying to do. We will need to have a table for the reading, users, and the cards.
 
-To do this we will need to start out by going to 'http://localhost/myphpadmin/index.php' and loggin in using the credentials that were set during the install.
+To do this we will need to start out by going to 'http://localhost/myphpadmin/index.php' and loggin in using the roto credentials that were set during the install.
 
-Next, click the 'import' tab at the top of the webpage. Here, we can choose the 'mysql.sql' file from this repo in order to create the database.
+Next, click on the 'New' button on the left to start a new database. We can not name it as 'TimeCard' and select 'utf8_general_ci' as the collation. If the new database is not selected, select it now.
+
+Next, click the 'import' tab at the top of the webpage. Here, we can choose the 'mysql.sql' file from this repo in order to create the tables in database.
 
 We should now have a new database that has a table called 'cards' which will hold information about the id cards and who they are linked with.  Also, the 'readings' table will hold all of the readings we get from the users when they clock in or out. Lastly, the 'users' table will hold the name of the user and their unique id.
 
 We should now be able to add users to the database.
 
+# Adding users to the database
+We can add users to the database manually if you but this could cause unwanted results when trying to link a RFID card to the user.
 
+Another option is to use the 'adduser.py' script. To do this use the following commands to install MySQLdb and unidecode then run the script.
+```
+sudo apt-get install python-mysqldb
+sudo pip install unidecode
+cd ~
+sudo python nfc_attendance/python/adduser.py
+```
+This script will ask you to enter the first and last name of the user and then scan their new id card. This will add the user to the database as well as the card and link them to each other.
+
+This can be repeated for each user.
 
 
 
