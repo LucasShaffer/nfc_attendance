@@ -233,7 +233,9 @@ To do this we will need to start out by going to 'http://localhost/myphpadmin/in
 
 Next, click the 'import' tab at the top of the webpage. Here, we can choose the 'mysql.sql' file from this repo in order to create the database.
 
+We should now have a new database that has a table called 'cards' which will hold information about the id cards and who they are linked with.  Also, the 'readings' table will hold all of the readings we get from the users when they clock in or out. Lastly, the 'users' table will hold the name of the user and their unique id.
 
+We should now be able to add users to the database.
 
 
 
