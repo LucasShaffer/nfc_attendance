@@ -251,9 +251,10 @@ sudo python nfc_attendance/python/adduser.py
 ```
 This script will ask you to enter the first and last name of the user and then scan their new id card. This will add the user to the database as well as the card and link them to each other.
 
-This can be repeated for each user.
+This can be repeated for each user. Once every user is in the database we can run our script that will constantly look for a user id card as well as update the UI.
 
-
+# Setting up our main script
+We now will need to make a script that will be constantly looking for a user to swipe their card, updating the message section of the UI, and the date section of the UI.
 
 
 
