@@ -256,6 +256,6 @@ This can be repeated for each user. Once every user is in the database we can ru
 # Setting up our main script
 We now will need to make a script that will be constantly looking for a user to swipe their card, updating the message section of the UI, and the date section of the UI.
 
-
+The script that I use is in the python folder and called myatten.py. This works for the NFC chip and cards that I picked for my project. Alterations will need to be made if your hardware differs.
 
 
